@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lot Size Calculator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lot Size Calculator</h1>
+        <div class="input-container">
+            <label for="accountSize">Account Size (USD):</label>
+            <input type="number" id="accountSize" placeholder="Enter account size">
+        </div>
+        <div class="input-container">
+            <label for="riskPercentage">Risk Percentage (%):</label>
+            <input type="number" id="riskPercentage" placeholder="Enter risk percentage">
+        </div>
+        <div class="input-container">
+            <label for="stopLossPips">Stop Loss (pips):</label>
+            <input type="number" id="stopLossPips" placeholder="Enter stop loss in pips">
+        </div>
+        <div class="input-container">
+            <label for="pipValue">Pip Value (USD per pip per lot):</label>
+            <input type="number" id="pipValue" placeholder="Enter pip value">
+        </div>
+        <button id="calculateButton">Calculate Lot Size</button>
+        <div id="result"></div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
