@@ -42,6 +42,12 @@ input[type="number"] {
     border: 1px solid #ccc;
     border-radius: 3px;
 }
+select{
+    padding: 10px 20px;
+}
+option{
+    padding: 10px 20px;
+}
 
 button {
     background-color: #007BFF;
