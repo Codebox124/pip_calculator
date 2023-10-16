@@ -16,12 +16,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const lotSize = (dollarRisk / (stopLossPips * pipValue)) / 100000; // Corrected lot size calculation
 
             const tradeSize = lotSize * 100000;
+            const formattedTradeSize = tradeSize.toLocaleString(); // Format trade size with commas
 
             const moneyAtRisk = tradeSize * stopLossPips * pipValue;
 
             document.getElementById('result').innerHTML = `Pip Value: ${pipValue}<br>
                 Lot Size: ${lotSize.toFixed(2)} lots<br>
-                Trade Size: ${tradeSize.toFixed(2)} units<br>
+                Trade Size: ${formattedTradeSize} units<br>
                 Money at Risk: $${moneyAtRisk.toFixed(2)}`;
         } else {
             document.getElementById('result').innerHTML = 'Please enter valid numbers for all fields.';
