@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const lotSize = dollarRisk / (stopLossPips * pipValue);
 
             // Calculate trade size (assuming standard lot size of 100,000 units)
-            const tradeSize = lotSize * 100000;
+            const tradeSize = lotSize * 1.0;
 
             // Calculate money at risk
             const moneyAtRisk = tradeSize * stopLossPips * pipValue;
