@@ -9,21 +9,38 @@ document.addEventListener('DOMContentLoaded', function () {
         const accountSize = parseFloat(document.getElementById('accountSize').value);
         const riskPercentage = parseFloat(document.getElementById('riskPercentage').value);
         const stopLossPips = parseFloat(document.getElementById('stopLossPips').value);
+        const currencyPair = document.getElementById('currencyPair').value;
+
+        // Define predefined multipliers for different currency pairs
+        const multiplierMap = {
+            'EUR/USD': 100000,
+            'GBP/USD': 100000,
+            'USD/JPY': 149.80895,
+            'USD/CHF': 0.90035,
+            // Add more currency pairs and multipliers as needed
+        };
 
         if (!isNaN(accountSize) && !isNaN(riskPercentage) && !isNaN(stopLossPips)) {
             const dollarRisk = (riskPercentage / 100) * accountSize;
             const pipValue = standardPipValue;
-            const lotSize = (dollarRisk / (stopLossPips * pipValue)) / 100000; // Corrected lot size calculation
 
-            const tradeSize = lotSize * 100000;
-            const formattedTradeSize = tradeSize.toLocaleString(); // Format trade size with commas
+            // Use the multiplier based on the selected currency pair
+            const lotSizeMultiplier = multiplierMap[currencyPair];
+            if (lotSizeMultiplier) {
+                const lotSize = (dollarRisk / (stopLossPips * pipValue)) / lotSizeMultiplier;
 
-            const moneyAtRisk = tradeSize * stopLossPips * pipValue;
+                const tradeSize = lotSize * lotSizeMultiplier;
+                const formattedTradeSize = tradeSize.toLocaleString();
 
-            document.getElementById('result').innerHTML = `Pip Value: ${pipValue}<br>
-                Lot Size: ${lotSize.toFixed(2)} lots<br>
-                Trade Size: ${formattedTradeSize} units<br>
-                Money at Risk: $${moneyAtRisk.toFixed(2)}`;
+                const moneyAtRisk = tradeSize * stopLossPips * pipValue;
+
+                document.getElementById('result').innerHTML = `Pip Value: ${pipValue}<br>
+                    Lot Size: ${lotSize.toFixed(2)} lots<br>
+                    Trade Size: ${formattedTradeSize} units<br>
+                    Money at Risk: $${moneyAtRisk.toFixed(2)}`;
+            } else {
+                document.getElementById('result').innerHTML = 'Please select a valid currency pair.';
+            }
         } else {
             document.getElementById('result').innerHTML = 'Please enter valid numbers for all fields.';
         }
