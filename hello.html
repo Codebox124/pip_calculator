@@ -1,17 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Position Size Calculator</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compounding Calculator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
-<body style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
-  <div id="calculator" style="max-width: 100%;">
-    <iframe src="https://www.cashbackforex.com/widgets/position-size-calculator?symbol=USD/CHF"
-      title="Position Size Calculator" allowfullscreen style=" border: 0;" height="600" width="400"></iframe>
-  </div>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center">Compounding Calculator</h1>
+    <form>
+        <div class="form-group">
+            <label for="principal">Starting balance:</label>
+            <input type="number" class="form-control" id="principal" step="0.01" placeholder="Enter the initial amount">
+        </div>
+
+        <div class="form-group">
+            <label for="interestRate">Gain % per period:</label>
+            <input type="number" class="form-control" id="interestRate" step="0.01" placeholder="Enter the annual interest rate">
+        </div>
+
+        <div class="form-group">
+            <label for="compoundingFrequency">Compounding Frequency:</label>
+            <select class="form-control" id="compoundingFrequency">
+                <option value="1">Annually</option>
+                <option value="12">Monthly</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="years">Number of periods</label>
+            <input type="number" class="form-control" id="years" placeholder="Enter the number of years">
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="calculateFutureValue()">Calculate</button>
+    </form>
+
+    <div class="mt-4">
+        <p class="font-weight-bold">Official Ending Balance:</p>
+        <p id="officialEndingBalance" class="lead">0.00</p>
+    </div>
+
+    <div class="mt-4">
+        <p class="font-weight-bold">Official Total Gain:</p>
+        <p id="officialTotalGain" class="lead">0.00%</p>
+    </div>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Starting Balance</th>
+                <th>Total Gain (%)</th>
+                <th>Ending Balance</th>
+            </tr>
+        </thead>
+        <tbody id="resultTable">
+        </tbody>
+    </table>
+</div>
+
+    <script>
+        function calculateFutureValue() {
+            const principal = parseFloat(document.getElementById("principal").value);
+            const interestRate = parseFloat(document.getElementById("interestRate").value) / 100;
+            const compoundingFrequency = parseInt(document.getElementById("compoundingFrequency").value);
+            const years = parseInt(document.getElementById("years").value);
+
+            const resultTable = document.getElementById("resultTable");
+            resultTable.innerHTML = ""; // Clear the table
+
+            let currentBalance = principal;
+
+            for (let year = 1; year <= years; year++) {
+                const interestEarned = currentBalance * (interestRate / compoundingFrequency);
+                const totalGain = (currentBalance + interestEarned) - principal;
+                currentBalance = currentBalance + interestEarned;
+
+                const row = resultTable.insertRow();
+                const yearCell = row.insertCell(0);
+                const startingBalanceCell = row.insertCell(1);
+                const totalGainCell = row.insertCell(2);
+                const endingBalanceCell = row.insertCell(3);
+
+                yearCell.textContent = year;
+                startingBalanceCell.textContent = currentBalance.toFixed(2);
+                totalGainCell.textContent = (totalGain / principal * 100).toFixed(2) + "%";
+                endingBalanceCell.textContent = currentBalance.toFixed(2);
+            }
+
+            document.getElementById("officialEndingBalance").textContent = currentBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+            document.getElementById("officialTotalGain").textContent = ((currentBalance - principal) / principal * 100).toFixed(2) + "%";
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
