@@ -1,132 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compounding Calculator</title>
-    <style>
-      body {
-          font-family: Arial, sans-serif;
-          background-color: #E6FFC2;
-          color: #333;
-      }
-  
-      .container {
-          max-width: 400px;
-          margin: 0 auto;
-          background-color: #FFFFFF;
-          padding: 20px;
-          border-radius: 5px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-  
-      h1 {
-          text-align: center;
-          color: #4CAF50;
-      }
-  
-      label {
-          display: block;
-          margin-bottom: 8px;
-          color: #333;
-      }
-  
-      input[type="number"] {
-          width: 95%;
-          padding: 8px;
-          margin-bottom: 15px;
-          border: 1px solid #4CAF50;
-          border-radius: 3px;
-      }
-  
-      button {
-          background-color: #4CAF50;
-          color: #fff;
-          border: none;
-          border-radius: 3px;
-          padding: 10px 20px;
-          cursor: pointer;
-      }
-  
-      button:hover {
-          background-color: #45A049;
-      }
-  
-      select {
-          width: 100%;
-          padding: 8px;
-          margin-bottom: 15px;
-          border: 1px solid #4CAF50;
-          border-radius: 3px;
-      }
-  
-      table {
-          width: 100%;
-          border-collapse: collapse;
-      }
-  
-      table, th, td {
-          border: 1px solid #4CAF50;
-      }
-  
-      th, td {
-          padding: 8px;
-          text-align: center;
-      }
-  
-      th {
-          background-color: #4CAF50;
-          color: #fff;
-      }
-  
-      p {
-          font-weight: bold;
-          color: #4CAF50;
-      }
-  </style>
-  
-  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1>Compounding Calculator</h1>
-        <label for="principal">Starting balance:</label>
-        <input type="number" id="principal" step="0.01" placeholder="Enter the initial amount">
+  <div class="container mt-5">
+    <h1 class="text-center">Compounding Calculator</h1>
+    <form>
+        <div class="form-group">
+            <label for="principal">Starting balance:</label>
+            <input type="number" class="form-control" id="principal" step="0.01" placeholder="Enter the initial amount">
+        </div>
 
-        <label for="interestRate">Gain % per period:</label>
-        <input type="number" id="interestRate" step="0.01" placeholder="Enter the annual interest rate">
+        <div class="form-group">
+            <label for="interestRate">Gain % per period:</label>
+            <input type="number" class="form-control" id="interestRate" step="0.01" placeholder="Enter the annual interest rate">
+        </div>
 
-        <label for="compoundingFrequency">Compounding Frequency:</label>
-        <select id="compoundingFrequency">
-            <option value="1">Annually</option>
-          
-        </select>
+        <div class="form-group">
+            <label for="compoundingFrequency">Compounding Frequency:</label>
+            <select class="form-control" id="compoundingFrequency">
+                <option value="1">Annually</option>
+            </select>
+        </div>
 
-        <label for="years">Number of periods</label>
-        <input type="number" id="years" placeholder="Enter the number of years">
+        <div class="form-group">
+            <label for="years">Number of periods</label>
+            <input type="number" class="form-control" id="years" placeholder="Enter the number of years">
+        </div>
 
-        <button onclick="calculateFutureValue()">Calculate</button>
-        <p>Official Ending Balance:</p>
-        <p id="officialEndingBalance">0.00</p>
+        <button type="button" class="btn btn-primary" onclick="calculateFutureValue()">Calculate</button>
+    </form>
 
-        <p>Official Total Gain:</p>
-        <p id="officialTotalGain">0.00%</p>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Year</th>
-                    <th>Starting Balance</th>
-                    <th>Total Gain (%)</th>
-                    <th>Ending Balance</th>
-                </tr>
-            </thead>
-            <tbody id="resultTable">
-            </tbody>
-        </table>
+    <div class="mt-4">
+        <p class="font-weight-bold">Official Ending Balance:</p>
+        <p id="officialEndingBalance" class="lead">0.00</p>
     </div>
+
+    <div class="mt-4">
+        <p class="font-weight-bold">Official Total Gain:</p>
+        <p id="officialTotalGain" class="lead">0.00%</p>
+    </div>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Starting Balance</th>
+                <th>Total Gain (%)</th>
+                <th>Ending Balance</th>
+            </tr>
+        </thead>
+        <tbody id="resultTable">
+        </tbody>
+    </table>
+</div>
 
     <script>
         function calculateFutureValue() {
@@ -162,6 +94,10 @@
             document.getElementById("officialTotalGain").textContent = ((currentBalance - principal) / principal * 100).toFixed(2) + "%";
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
